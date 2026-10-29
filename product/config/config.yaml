@@ -18,8 +18,8 @@ camera:
   buffer_size: 1                    # Giảm tối đa độ trễ hàng đợi khung hình trên Linux
 
 model:
-  path: "models/yolov8n_cap.tflite" # Đường dẫn mô hình (.tflite, .onnx, hoặc .pt)
-  runtime: "auto"                   # "auto" (tự nhận diện), "tflite", "onnx", hoặc "pytorch"
+  path: "models/yolov8n_cap.onnx"       # Đường dẫn mô hình (.onnx, .tflite, hoặc .pt)
+  runtime: "auto"                   # "auto" (tự nhận diện), "onnx", "tflite", hoặc "pytorch"
   input_size: [320, 320]            # Kích thước khung hình đầu vào tối ưu cho Edge AI
   confidence_threshold: 0.50        # Ngưỡng tin cậy tối thiểu nhận diện nắp chai
   iou_threshold: 0.45               # Ngưỡng NMS IoU loại bỏ trùng lặp

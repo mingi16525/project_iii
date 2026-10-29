@@ -32,10 +32,20 @@ class ObjectDetectorPC:
 
     def _init_detector(self, runtime):
         if not os.path.exists(self.model_path):
-            print(f"[DetectorPC Warning] Không tìm thấy file model '{self.model_path}'.")
-            print("[DetectorPC] Kích hoạt chế độ Heuristic Mock Detector (Tự động nhận diện hình thái nắp tròn) để test ngay!")
-            self.is_mock_mode = True
-            return
+            base_no_ext = os.path.splitext(self.model_path)[0]
+            candidates = [f"{base_no_ext}.onnx", f"{base_no_ext}.pt", f"{base_no_ext}.tflite"]
+            found = False
+            for cand in candidates:
+                if os.path.exists(cand):
+                    print(f"[DetectorPC] Đã tìm thấy file mô hình thay thế: '{cand}'")
+                    self.model_path = cand
+                    found = True
+                    break
+            if not found:
+                print(f"[DetectorPC Warning] Không tìm thấy file model '{self.model_path}'.")
+                print("[DetectorPC] Kích hoạt chế độ Heuristic Mock Detector (Tự động nhận diện hình thái nắp tròn) để test ngay!")
+                self.is_mock_mode = True
+                return
 
         ext = os.path.splitext(self.model_path)[1].lower()
 

@@ -52,11 +52,11 @@ ssh arduino@192.168.1.50
 Sau khi đã SSH vào bo mạch, thực hiện các lệnh sau để cài đặt các gói công cụ thị giác máy tính và môi trường Python:
 
 ```bash
-# 1. Cập nhật danh mục gói phần mềm
-sudo apt update && sudo apt upgrade -y
+# 1. Cập nhật danh mục gói phần mềm (nếu có gói downgrade từ Qualcomm overlay thì thêm cờ --allow-downgrades)
+sudo apt update && sudo apt upgrade -y --allow-downgrades
 
-# 2. Cài đặt các thư viện hệ thống cần thiết cho OpenCV và V4L2
-sudo apt install -y python3-pip python3-opencv v4l-utils libatlas-base-dev git
+# 2. Cài đặt các thư viện hệ thống cần thiết (dùng libopenblas-dev thay cho libatlas-base-dev đã lỗi thời trên Debian mới)
+sudo apt install -y python3-pip python3-venv python3-opencv v4l-utils libopenblas-dev git
 
 # 3. Phân quyền cho user truy cập vào thiết bị camera USB
 sudo usermod -a -G video $USER
@@ -68,12 +68,14 @@ v4l2-ctl --list-devices
 > Kết quả lệnh `v4l2-ctl --list-devices` phải hiển thị tên của Webcam USB (ví dụ: `USB 2.0 Camera (/dev/video0)`).
 
 ```bash
-# 5. Cài đặt các thư viện Python bổ trợ
-pip3 install paho-mqtt pyyaml numpy psutil
+# 5. Cài đặt các thư viện Python bổ trợ (trên Debian 12/13 thêm --break-system-packages nếu không dùng venv)
+pip3 install --break-system-packages paho-mqtt pyyaml numpy psutil
 
-# Cài đặt runtime AI siêu nhẹ cho chip ARM/Qualcomm
-pip3 install tflite-runtime
-# (Hoặc nếu dùng ONNX): pip3 install onnxruntime
+# Cài đặt ONNX Runtime (Khuyến nghị - Tương thích trực tiếp với file models/yolov8n_cap.onnx đã train)
+pip3 install --break-system-packages onnxruntime
+
+# (Tùy chọn nếu dùng TFLite):
+# pip3 install --break-system-packages tflite-runtime
 ```
 
 ---
@@ -94,8 +96,10 @@ scp -r d:\2026.1\ProjectIII\product\src arduino@192.168.1.50:~/edge_counter/
 scp -r d:\2026.1\ProjectIII\product\config arduino@192.168.1.50:~/edge_counter/
 scp d:\2026.1\ProjectIII\product\requirements.txt arduino@192.168.1.50:~/edge_counter/
 
-# 3. Đẩy file mô hình AI weights (nếu có sẵn)
-scp d:\2026.1\ProjectIII\product\models\yolov8n_cap.tflite arduino@192.168.1.50:~/edge_counter/models/
+# 3. Đẩy file mô hình AI weights đã train (.onnx) lên bo mạch
+scp d:\2026.1\ProjectIII\product\models\yolov8n_cap.onnx arduino@192.168.1.50:~/edge_counter/models/
+# (Tùy chọn) Đẩy thêm file .pt nếu cài Ultralytics trên bo mạch:
+# scp d:\2026.1\ProjectIII\product\models\yolov8n_cap.pt arduino@192.168.1.50:~/edge_counter/models/
 ```
 
 ### Cách 2: Sử dụng VS Code Remote - SSH / Antigravity IDE
@@ -104,15 +108,14 @@ scp d:\2026.1\ProjectIII\product\models\yolov8n_cap.tflite arduino@192.168.1.50:
 3. Mở thư mục `/home/arduino/edge_counter` trực tiếp trên cửa sổ IDE.
 4. Kéo thả file mã nguồn hoặc chỉnh sửa code trực tiếp trên bo mạch mà không cần gõ lệnh đẩy.
 
-### Cách 3: Đẩy qua Git
+### Cách 3: Đồng bộ qua Git (Khuyên dùng khi có Internet)
+Kho mã nguồn đã được tạo sẵn trên GitHub:
 ```bash
-# Trên máy tính:
-git add .
-git commit -m "Update edge counter src"
-git push origin main
+# Trên bo mạch Arduino (lần đầu tiên):
+git clone https://github.com/mingi16525/project_iii.git ~/edge_counter
+cd ~/edge_counter/product
 
-# Trên bo mạch Arduino:
-cd ~/edge_counter
+# Khi có cập nhật mới từ máy tính:
 git pull origin main
 ```
 
@@ -140,6 +143,12 @@ mqtt:
   broker: "192.168.1.100"       # IP của Laptop trong cùng mạng Wi-Fi
   port: 1883
   topic: "lab/conveyor/counter"
+
+display:
+  # LƯU Ý QUAN TRỌNG KHI CHẠY QUA SSH:
+  # Nếu bo mạch KHÔNG cắm màn hình HDMI (Headless mode), hãy đặt show_window: false
+  # để tránh lỗi không mở được cửa sổ đồ họa GUI qua SSH:
+  show_window: false
 ```
 
 ---

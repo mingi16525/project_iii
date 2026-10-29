@@ -33,10 +33,21 @@ class ObjectDetector:
     def _load_model(self):
         """Khởi tạo runtime và nạp mô hình vào bộ nhớ RAM."""
         if not os.path.exists(self.model_path):
-            print(f"[Detector Warning] Không tìm thấy file model '{self.model_path}'.")
-            print("[Detector] Tự động kích hoạt Heuristic Mock Mode (nhận diện hình thái nắp tròn) để test ngay!")
-            self.is_mock_mode = True
-            return
+            # Tự động tìm mô hình thay thế cùng tên (.onnx, .tflite, .pt)
+            base_no_ext = os.path.splitext(self.model_path)[0]
+            candidates = [f"{base_no_ext}.onnx", f"{base_no_ext}.tflite", f"{base_no_ext}.pt"]
+            found = False
+            for cand in candidates:
+                if os.path.exists(cand):
+                    print(f"[Detector] Đã tìm thấy file mô hình thay thế: '{cand}'")
+                    self.model_path = cand
+                    found = True
+                    break
+            if not found:
+                print(f"[Detector Warning] Không tìm thấy file model '{self.model_path}'.")
+                print("[Detector] Tự động kích hoạt Heuristic Mock Mode (nhận diện hình thái nắp tròn) để test ngay!")
+                self.is_mock_mode = True
+                return
 
         ext = os.path.splitext(self.model_path)[1].lower()
 
