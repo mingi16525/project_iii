@@ -64,7 +64,16 @@ def on_message(client, userdata, msg):
 
 
 def main():
-    print(f"[MONITOR] Đang kết nối tới MQTT Broker tại {BROKER_HOST}:{BROKER_PORT}...")
+    import argparse
+    parser = argparse.ArgumentParser(description="MQTT Monitoring Subscriber Dashboard")
+    parser.add_argument("--broker", default="192.168.1.52", help="Địa chỉ IP của MQTT Broker (mặc định IP bo mạch: 192.168.1.52)")
+    parser.add_argument("--port", type=int, default=1883, help="Cổng MQTT (mặc định 1883)")
+    args = parser.parse_args()
+
+    broker_host = args.broker
+    broker_port = args.port
+
+    print(f"[MONITOR] Đang kết nối tới MQTT Broker tại {broker_host}:{broker_port}...")
     try:
         client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1, client_id=f"monitor_dashboard_{int(time.time())}")
     except (AttributeError, TypeError):
@@ -73,7 +82,7 @@ def main():
     client.on_message = on_message
 
     try:
-        client.connect(BROKER_HOST, BROKER_PORT, 60)
+        client.connect(broker_host, broker_port, 60)
         client.loop_forever()
     except KeyboardInterrupt:
         print("\n[MONITOR] Đang dừng giám sát...")

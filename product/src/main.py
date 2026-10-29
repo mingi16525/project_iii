@@ -134,11 +134,13 @@ def main():
     print("\n[Main] Hệ thống bắt đầu vận hành! Nhấn 'q' để dừng, 'r' để reset, 'SPACE' để tạm dừng.")
     heartbeat_interval = mqtt_cfg.get("heartbeat_interval", 2.0)
     last_heartbeat_time = time.time()
+    detect_interval = model_cfg.get("detect_interval", 1)
 
     frame_count = 0
     fps_start_time = time.time()
     current_fps = 0.0
     paused = False
+    raw_detections = []
 
     show_window = disp_cfg.get("show_window", False)
     window_name = disp_cfg.get("window_name", "Edge AI Bottle Cap Counter")
@@ -163,8 +165,9 @@ def main():
                     current_fps = 10.0 / elapsed if elapsed > 0 else 0.0
                     fps_start_time = time.time()
 
-                # Bước 2: Suy luận nhận diện AI
-                raw_detections = detector.detect(frame)
+                # Bước 2: Suy luận nhận diện AI (chạy theo chu kỳ detect_interval để tối ưu FPS)
+                if frame_count % detect_interval == 0 or not raw_detections:
+                    raw_detections = detector.detect(frame)
 
                 # Bước 2b: Phân loại màu sắc cho từng nắp chai
                 detections = []

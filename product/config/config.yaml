@@ -23,6 +23,7 @@ model:
   input_size: [320, 320]            # Kích thước khung hình đầu vào tối ưu cho Edge AI
   confidence_threshold: 0.50        # Ngưỡng tin cậy tối thiểu nhận diện nắp chai
   iou_threshold: 0.45               # Ngưỡng NMS IoU loại bỏ trùng lặp
+  detect_interval: 2                # Nhận diện mỗi N frame (2: x2 FPS từ ~4 lên ~8-10 FPS)
   labels: ["cap"]                   # Nhãn vật thể cần đếm
 
 counter:
@@ -39,7 +40,7 @@ color:
 
 mqtt:
   enabled: true
-  broker: "192.168.1.100"           # Địa chỉ IP của Laptop / MQTT Broker trong mạng LAN
+  broker: "localhost"           # Broker chạy trực tiếp trên bo mạch Arduino (hoặc IP Laptop)
   port: 1883
   topic: "lab/conveyor/counter"
   qos: 0

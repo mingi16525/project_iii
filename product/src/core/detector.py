@@ -61,7 +61,11 @@ class ObjectDetector:
             elif ext == ".onnx" or self.requested_runtime == "onnx":
                 import onnxruntime as ort
                 print(f"[Detector] Đang nạp mô hình ONNX Runtime: {self.model_path}...")
-                self.model_obj = ort.InferenceSession(self.model_path, providers=['CPUExecutionProvider'])
+                sess_opts = ort.SessionOptions()
+                sess_opts.intra_op_num_threads = 4  # Tận dụng tối đa 4 nhân CPU Qualcomm
+                sess_opts.execution_mode = ort.ExecutionMode.ORT_SEQUENTIAL
+                sess_opts.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
+                self.model_obj = ort.InferenceSession(self.model_path, sess_opts, providers=['CPUExecutionProvider'])
                 self.backend = "onnx"
 
             elif ext == ".tflite" or self.requested_runtime == "tflite":
@@ -154,18 +158,25 @@ class ObjectDetector:
         boxes_list = []
         confidences = []
 
-        for row in predictions:
-            cx, cy, w, h = row[:4]
-            scores = row[4:]
-            score = float(np.max(scores)) if len(scores) > 0 else float(row[4])
+        if len(predictions.shape) == 2 and len(predictions) > 0:
+            # Tối ưu hóa Vectorized: Lọc nhanh bằng NumPy thay vì vòng lặp Python 2100 lần
+            if predictions.shape[1] > 5:
+                scores = np.max(predictions[:, 4:], axis=1)
+            else:
+                scores = predictions[:, 4]
 
-            if score >= self.confidence_threshold:
+            mask = scores >= self.confidence_threshold
+            filtered_preds = predictions[mask]
+            filtered_scores = scores[mask]
+
+            for row, score in zip(filtered_preds, filtered_scores):
+                cx, cy, w, h = row[:4]
                 x1 = int((cx - w / 2) / scale_x)
                 y1 = int((cy - h / 2) / scale_y)
                 bw = int(w / scale_x)
                 bh = int(h / scale_y)
                 boxes_list.append([x1, y1, bw, bh])
-                confidences.append(score)
+                confidences.append(float(score))
 
         indices = cv2.dnn.NMSBoxes(boxes_list, confidences, self.confidence_threshold, self.iou_threshold)
         results = []
