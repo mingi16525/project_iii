@@ -140,8 +140,13 @@ def main():
     current_fps = 0.0
     paused = False
 
-    show_window = disp_cfg.get("show_window", True)
+    show_window = disp_cfg.get("show_window", False)
     window_name = disp_cfg.get("window_name", "Edge AI Bottle Cap Counter")
+
+    # Tự động chuyển sang Headless mode nếu đang chạy qua SSH hoặc không có màn hình X11/Wayland
+    if show_window and sys.platform.startswith("linux") and not os.environ.get("DISPLAY") and not os.environ.get("WAYLAND_DISPLAY"):
+        print("[Display] Không phát hiện màn hình X11/Wayland (chạy qua SSH). Tự động kích hoạt Headless Mode...")
+        show_window = False
 
     try:
         while running:

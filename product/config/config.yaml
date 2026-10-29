@@ -46,5 +46,5 @@ mqtt:
   heartbeat_interval: 2.0           # Chu kỳ gửi tin nhịp tim (giây)
 
 display:
-  show_window: true                 # Đặt false nếu chạy ngầm không cần màn hình (Headless Mode)
+  show_window: false                # Đặt false khi chạy trên bo mạch (Headless Mode), đặt true nếu có cắm màn hình HDMI
   window_name: "Edge AI Bottle Cap Counter - Project III"
