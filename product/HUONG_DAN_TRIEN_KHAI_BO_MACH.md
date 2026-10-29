@@ -92,12 +92,12 @@ Từ máy tính cá nhân (tại thư mục dự án `d:\2026.1\ProjectIII\produ
 ssh arduino@192.168.1.50 "mkdir -p ~/edge_counter/models ~/edge_counter/config"
 
 # 2. Đẩy toàn bộ mã nguồn src/ và config/ lên bo mạch
-scp -r d:\2026.1\ProjectIII\product\src arduino@192.168.1.50:~/edge_counter/
-scp -r d:\2026.1\ProjectIII\product\config arduino@192.168.1.50:~/edge_counter/
-scp d:\2026.1\ProjectIII\product\requirements.txt arduino@192.168.1.50:~/edge_counter/
+scp -r d:\2026.1\ProjectIII\product\src arduino@192.168.1.52:~/edge_counter/
+scp -r d:\2026.1\ProjectIII\product\config arduino@192.168.1.52:~/edge_counter/
+scp d:\2026.1\ProjectIII\product\requirements.txt arduino@192.168.1.52:~/edge_counter/
 
 # 3. Đẩy file mô hình AI weights đã train (.onnx) lên bo mạch
-scp d:\2026.1\ProjectIII\product\models\yolov8n_cap.onnx arduino@192.168.1.50:~/edge_counter/models/
+scp d:\2026.1\ProjectIII\product\models\yolov8n_cap.onnx arduino@192.168.1.52:~/edge_counter/models/
 # (Tùy chọn) Đẩy thêm file .pt nếu cài Ultralytics trên bo mạch:
 # scp d:\2026.1\ProjectIII\product\models\yolov8n_cap.pt arduino@192.168.1.50:~/edge_counter/models/
 ```
@@ -129,10 +129,23 @@ git pull origin main
   ```cmd
   net start mosquitto
   ```
-- **Trên Linux (Ubuntu):**
-  ```bash
-  sudo systemctl start mosquitto
-  ```
+- **Trên Linux (Ubuntu / WSL trên Laptop):**
+  1. Cài đặt Mosquitto:
+     ```bash
+     sudo apt update && sudo apt install -y mosquitto mosquitto-clients
+     ```
+  2. Cho phép kết nối từ xa từ bo mạch (Mosquitto 2.0+ mặc định chỉ nghe localhost):
+     ```bash
+     sudo bash -c 'cat <<EOF > /etc/mosquitto/conf.d/default.conf
+listener 1883
+allow_anonymous true
+EOF'
+     ```
+  3. Khởi động dịch vụ Mosquitto:
+     ```bash
+     sudo service mosquitto restart
+     # Hoặc: sudo systemctl restart mosquitto
+     ```
 
 ### 5.2. Cập nhật địa chỉ IP của Laptop vào file cấu hình
 Mở file `~/edge_counter/config/config.yaml` trên bo mạch và điền địa chỉ IP của Laptop (ví dụ: `192.168.1.100`):
