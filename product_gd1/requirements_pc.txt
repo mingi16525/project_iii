@@ -1,0 +1,10 @@
+# Danh sách thư viện Python cho Giai đoạn 1 (Huấn luyện & Kiểm thử trên Máy tính)
+ultralytics>=8.1.0        # Huấn luyện YOLOv8/YOLO11 và xuất TFLite/ONNX
+opencv-python>=4.8.0      # Thị giác máy tính và hiển thị GUI
+numpy>=1.23.0
+paho-mqtt>=1.6.1,<2.0.0   # Giao thức MQTT
+pyyaml>=6.0               # Đọc cấu hình YAML
+psutil>=5.9.0             # Đo đạc tải CPU & RAM
+onnx>=1.15.0              # Xuất và kiểm tra ONNX
+onnxruntime>=1.16.0       # Suy luận ONNX trên PC
+# tensorflow>=2.15.0      # Tùy chọn nếu cần xuất TFLite trên Windows PC

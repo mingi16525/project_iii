@@ -1,0 +1,9 @@
+# Cấu hình Dataset YOLOv8 cho bài toán nhận diện nắp chai (Bottle Cap)
+# Đường dẫn train/val được tính tương đối từ thư mục chứa file data.yaml này
+train: images/train
+val: images/val
+
+# Số lượng và tên các lớp (Classes)
+nc: 1
+names:
+  0: bottle_cap

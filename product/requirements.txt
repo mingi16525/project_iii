@@ -1,0 +1,21 @@
+# ====================================================================
+# Yêu cầu cài đặt môi trường cho dự án (Project III)
+# ====================================================================
+
+# 1. Thư viện lõi vận hành (Core Runtime trên Bo mạch / PC)
+opencv-python>=4.8.0
+numpy>=1.23.0
+paho-mqtt>=1.6.1
+pyyaml>=6.0
+psutil>=5.9.0
+
+# 2. Suy luận AI (Edge Runtime)
+# - Trên Linux nhúng (Arduino Qualcomm Linux): cài đặt tflite-runtime
+#   pip install tflite-runtime
+# - Trên PC hoặc hệ thống hỗ trợ ONNX:
+onnxruntime>=1.15.0
+
+# 3. Huấn luyện & Xuất mô hình (Tùy chọn - Dùng khi train/export mô hình)
+# ultralytics>=8.0.0
+# torch>=2.0.0
+# torchvision>=0.15.0

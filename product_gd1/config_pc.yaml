@@ -1,0 +1,59 @@
+# Cấu hình kiểm thử và vận hành trên Máy tính (PC Development - Giai đoạn 1)
+device:
+  id: "pc_test_workstation"
+  environment: "pc_simulation"
+
+input:
+  # Chọn nguồn video đầu vào:
+  # "stream": Lấy luồng camera qua mạng LAN (RTSP / HTTP / DroidCam / IP Webcam từ điện thoại/IP camera)
+  # "webcam": Sử dụng Webcam máy tính hoặc Webcam USB ngoài
+  # "video": Sử dụng file video mô phỏng (không cần camera vật lý)
+  type: "webcam"                        # "stream", "webcam", hoặc "video"
+  
+  # Cấu hình cho luồng mạng LAN (khi type: "stream"):
+  stream_url: "http://192.168.1.42:8080/video" # RTSP: rtsp://192.168.1.55:554/live hoặc HTTP IP Webcam
+  
+  # Cấu hình cho Webcam máy tính (khi type: "webcam"):
+  webcam_index: 1                       # 0: Webcam Laptop, 1: Webcam USB cắm ngoài
+  
+  # Cấu hình cho file video (khi type: "video"):
+  video_file: "simulation/conveyor_simulation.mp4"
+  width: 640
+  height: 480
+  fps: 20
+
+model:
+  # Đường dẫn file mô hình AI:
+  # Có thể trỏ tới: .pt (PyTorch), .onnx (ONNX), .tflite (TensorFlow Lite)
+  # Nếu để trống hoặc file chưa tồn tại, hệ thống tự động chạy Mock Heuristic Mode!
+  path: "models/yolov8n_cap.onnx"
+  runtime: "auto"                      # "auto", "pytorch", "onnx", "tflite"
+  input_size: [320, 320]
+  confidence_threshold: 0.50
+  iou_threshold: 0.45
+
+counter:
+  line_y: 240                          # Vị trí vạch ảo nằm ngang (0 - 480)
+  buffer_zone: 25                      # Vùng đệm chống rung lắc (pixels)
+  direction: "down"                    # "down" (trên xuống dưới), "up" (dưới lên trên)
+  max_disappeared_frames: 10
+
+color:
+  enabled: true
+  # Danh sách màu đơn đã được huấn luyện / cấu hình dải HSV:
+  trained_colors: ["red", "blue", "green", "yellow", "white"]
+  # Ngưỡng tỷ lệ nhận diện màu đơn chủ đạo tối thiểu (đạt 70%):
+  confidence_threshold: 0.70
+  # Chiến lược nhận diện: Tự động phân loại đơn sắc, nắp 2 màu (Dual-color: vd red_white) và đa màu (Multicolor)
+
+mqtt:
+  enabled: true                        # Bật gửi tin MQTT
+  broker: "localhost"                  # Broker chạy ngay trên PC
+  port: 1883
+  topic: "lab/conveyor/counter"
+  qos: 0
+  heartbeat_interval: 2.0
+
+display:
+  show_window: true
+  window_name: "PC TEST ENVIRONMENT - Edge AI Bottle Cap Counter (GD1)"

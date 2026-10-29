@@ -1,0 +1,6 @@
+names:
+- bottle_cap
+nc: 1
+path: .
+train: images/train
+val: images/val

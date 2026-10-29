@@ -1,0 +1,50 @@
+# ====================================================================
+# Configuration for Edge AI Bottle Cap Counter (Project III)
+# Tương thích triển khai bo mạch Arduino Qualcomm Linux & Kiểm thử
+# ====================================================================
+
+device:
+  id: "arduino_lab_node"
+  environment: "lab_demo"
+
+camera:
+  type: "webcam"                    # "webcam" (USB /dev/video0), "stream" (LAN RTSP/HTTP), hoặc "video" (file mp4)
+  index: 0                          # Index camera (/dev/video0)
+  stream_url: "http://192.168.1.50:8080/video" # URL luồng stream khi dùng camera qua Wi-Fi/LAN
+  video_file: "simulation/conveyor_simulation.mp4" # File video khi chọn chế độ mô phỏng
+  width: 640
+  height: 480
+  fps: 15
+  buffer_size: 1                    # Giảm tối đa độ trễ hàng đợi khung hình trên Linux
+
+model:
+  path: "models/yolov8n_cap.tflite" # Đường dẫn mô hình (.tflite, .onnx, hoặc .pt)
+  runtime: "auto"                   # "auto" (tự nhận diện), "tflite", "onnx", hoặc "pytorch"
+  input_size: [320, 320]            # Kích thước khung hình đầu vào tối ưu cho Edge AI
+  confidence_threshold: 0.50        # Ngưỡng tin cậy tối thiểu nhận diện nắp chai
+  iou_threshold: 0.45               # Ngưỡng NMS IoU loại bỏ trùng lặp
+  labels: ["cap"]                   # Nhãn vật thể cần đếm
+
+counter:
+  line_y: 240                       # Tọa độ Y của vạch ảo ngang (0-480)
+  buffer_zone: 25                   # Vùng đệm pixel quanh vạch để chống rung / đếm trùng
+  direction: "down"                 # Hướng di chuyển nắp chai: "down" (từ trên xuống) hoặc "up"
+  max_disappeared_frames: 10        # Số frame tối đa nắp biến mất trước khi xóa khỏi tracker
+
+color:
+  enabled: true
+  trained_colors: ["red", "blue", "green", "yellow", "white"] # Các màu đơn đã cấu hình dải HSV
+  confidence_threshold: 0.70        # Ngưỡng chính xác màu đơn tối thiểu (70%)
+  # Chiến lược phân loại: Hỗ trợ tự động phân loại đơn sắc, phối 2 màu (Dual-Color) và đa màu (Multicolor)
+
+mqtt:
+  enabled: true
+  broker: "192.168.1.100"           # Địa chỉ IP của Laptop / MQTT Broker trong mạng LAN
+  port: 1883
+  topic: "lab/conveyor/counter"
+  qos: 0
+  heartbeat_interval: 2.0           # Chu kỳ gửi tin nhịp tim (giây)
+
+display:
+  show_window: true                 # Đặt false nếu chạy ngầm không cần màn hình (Headless Mode)
+  window_name: "Edge AI Bottle Cap Counter - Project III"
