@@ -69,7 +69,9 @@ def main():
         height=cam_cfg.get("height", 480),
         fps=cam_cfg.get("fps", 15),
         buffer_size=cam_cfg.get("buffer_size", 1),
-        loop_video=True
+        loop_video=True,
+        threaded=cam_cfg.get("threaded_capture", True),
+        fourcc=cam_cfg.get("fourcc", "MJPG")
     )
 
     detector = ObjectDetector(

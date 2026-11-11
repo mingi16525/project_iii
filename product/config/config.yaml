@@ -9,13 +9,29 @@ device:
 
 camera:
   type: "webcam"                    # "webcam" (USB /dev/video0), "stream" (LAN RTSP/HTTP), hoặc "video" (file mp4)
-  index: 0                          # Index camera (/dev/video0)
+  # Nhận số thứ tự (0, 1, 2...) hoặc đường dẫn thiết bị ("/dev/video2").
+  # LƯU Ý trên bo mạch Qualcomm: /dev/video0 và /dev/video1 là bộ mã hóa/giải mã video cứng
+  # Venus của SoC, KHÔNG phải camera. Webcam USB nhận node cao hơn (thường /dev/video2).
+  # Tìm đúng node bằng: v4l2-ctl --list-devices
+  index: "/dev/video2"
   stream_url: "http://192.168.1.50:8080/video" # URL luồng stream khi dùng camera qua Wi-Fi/LAN
   video_file: "simulation/conveyor_simulation.mp4" # File video khi chọn chế độ mô phỏng
   width: 640
   height: 480
-  fps: 15
+  # Camera đo được ~23 FPS thực tế ở chế độ MJPG. Đặt 30 để không tự giới hạn: ở
+  # detect_interval=2 pipeline đạt ~15 FPS (không khác gì đặt 15), nhưng ở detect_interval=3
+  # thì nhờ headroom này mới lên được ~19 FPS thay vì bị camera chặn ở 15.
+  fps: 30
   buffer_size: 1                    # Giảm tối đa độ trễ hàng đợi khung hình trên Linux
+  # Đọc camera bằng luồng nền riêng, luôn lấy khung hình mới nhất và dọn hàng đợi V4L2.
+  # ĐO THỰC TẾ trên bo mạch này: không nhanh hơn đọc tuần tự (15.0 so với 15.0 FPS), vì driver
+  # tôn trọng buffer_size=1 nên hàng đợi không tồn đọng -> để false cho đơn giản.
+  # Bật true khi dùng camera/driver KHÔNG tôn trọng buffer_size (độ trễ tăng dần theo thời gian
+  # chạy, nắp nhảy xa giữa 2 lần detect rồi bị đếm hụt), thường gặp với stream RTSP qua mạng.
+  # Chỉ áp dụng cho webcam/stream; nguồn "video" luôn đọc tuần tự đủ frame.
+  threaded_capture: false
+  # Chế độ nén của webcam UVC. MJPG thường cho FPS cao hơn YUYV thô; đặt "" để dùng mặc định.
+  fourcc: "MJPG"
 
 model:
   path: "models/yolov8n_cap.onnx"       # Đường dẫn mô hình (.onnx, .tflite, hoặc .pt)
