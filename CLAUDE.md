@@ -84,6 +84,7 @@ Headless behaviour: `main.py` auto-disables the window on Linux when neither `DI
 
 ## Reference docs
 
+- `HUONG_DAN_THUC_HIEN_CUOI_CUNG.md` — the end-to-end run book at the repo root: PC setup, data collection, training, the 224 export, pushing to the board, operation, the tuning table, troubleshooting and a demo checklist. Start here for anything operational; it carries the measured board numbers and the dead ends (INT8, QNN).
 - `Docs/1`–`5_*.md` — system overview, hardware, algorithm, MQTT/JSON protocol, lab operation.
 - `product/00`–`04_*.md` — plan, PRD, system design, WBS/roadmap, test plan.
 - `product/HUONG_DAN_TRIEN_KHAI_BO_MACH.md` — board deployment: apt/pip setup on Debian 12/13 (`--break-system-packages`), SCP push to `~/edge_counter`, Mosquitto, the `edge_counter.service` systemd unit, troubleshooting table.
