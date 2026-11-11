@@ -10,7 +10,11 @@ from ultralytics import YOLO
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 MODELS_DIR = os.path.join(ROOT_DIR, "models")
 INPUT_MODEL = os.path.join(MODELS_DIR, "yolov8n_cap.pt")
-IMG_SIZE = 320
+# Kích thước đầu vào của mô hình xuất ra cho bo mạch biên.
+# 224 thay vì 320: suy luận nhanh hơn ~1.8x trên CPU ARM mà mAP50 gần như không đổi
+# (0.9919 so với 0.9935 trên tập val). PHẢI khớp với model.input_size trong config/config.yaml
+# vì ONNX được xuất với dynamic=False (kích thước đầu vào cố định).
+IMG_SIZE = 224
 
 
 def main():

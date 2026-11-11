@@ -16,12 +16,19 @@ class VisualizerPC:
         # Màu sắc hiển thị Bounding Box tương ứng với nhãn
         self.box_colors = {
             "red": (0, 0, 255),
-            "blue": (255, 100, 0),
-            "green": (0, 220, 0),
+            "orange": (0, 140, 255),
             "yellow": (0, 220, 240),
+            "green": (0, 220, 0),
+            "cyan": (220, 220, 0),
+            "blue": (255, 100, 0),
+            "purple": (200, 40, 140),
+            "pink": (180, 105, 255),
+            "brown": (40, 75, 130),
             "white": (230, 230, 230),
-            "multicolor": (0, 165, 255),  # Màu cam rực rỡ cho đa sắc
-            "unknown": (255, 0, 255)  # Màu tím hồng cảnh báo cho màu lạ
+            "gray": (150, 150, 150),
+            "black": (60, 60, 60),
+            "multicolor": (0, 165, 255),
+            "unknown": (255, 0, 255)
         }
 
     def get_color_bgr(self, color_name):
@@ -111,13 +118,19 @@ class VisualizerPC:
 
         # 6. Bảng thống kê phân loại từng màu (Góc trên bên phải)
         # Tự động hiển thị các màu cơ bản và các màu phối hợp (red_white, multicolor...) có số lượng > 0
-        base_colors = ["red", "blue", "green", "yellow", "white", "multicolor", "unknown"]
-        display_colors = [c for c in base_colors if counts_by_color.get(c, 0) > 0 or c in ["red", "blue", "green", "unknown"]]
+        base_colors = ["red", "orange", "yellow", "green", "cyan", "blue",
+                       "purple", "pink", "brown", "white", "gray", "black",
+                       "multicolor", "unknown"]
+        # Luôn hiển thị 3 màu chủ đạo + unknown, các màu còn lại chỉ hiện khi đã đếm được
+        display_colors = [c for c in base_colors if counts_by_color.get(c, 0) > 0 or c in ["red", "green", "blue", "unknown"]]
         for c, count in counts_by_color.items():
             if c not in display_colors and count > 0:
                 display_colors.append(c)
 
         panel_w = 220
+        # Giới hạn số dòng để bảng không tràn khỏi khung hình 480px
+        if len(display_colors) > 14:
+            display_colors = display_colors[:14]
         panel_h = 42 + len(display_colors) * 20
         panel_x = w - panel_w - 10
         cv2.rectangle(annotated, (panel_x, 10), (w - 10, 10 + panel_h), (20, 20, 20), -1)

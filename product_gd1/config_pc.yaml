@@ -40,8 +40,9 @@ counter:
 
 color:
   enabled: true
-  # Danh sách màu đơn đã được huấn luyện / cấu hình dải HSV:
-  trained_colors: ["red", "blue", "green", "yellow", "white"]
+  # Danh mục 12 màu cơ bản đã được cấu hình dải HSV (bỏ bất kỳ màu nào khỏi
+  # danh sách nếu muốn hệ thống coi màu đó là "unknown"):
+  trained_colors: ["red", "orange", "yellow", "green", "cyan", "blue", "purple", "pink", "brown", "white", "gray", "black"]
   # Ngưỡng tỷ lệ nhận diện màu đơn chủ đạo tối thiểu (đạt 70%):
   confidence_threshold: 0.70
   # Chiến lược nhận diện: Tự động phân loại đơn sắc, nắp 2 màu (Dual-color: vd red_white) và đa màu (Multicolor)

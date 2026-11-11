@@ -15,13 +15,20 @@ class LineCounter:
         self.just_counted_event = False    # Bật True khi có nắp vừa mới cắt vạch
         self.last_counted_color = "unknown"
 
-        # Bảng thống kê số lượng theo từng màu sắc
+        # Bảng thống kê số lượng theo từng màu cơ bản
         self.counts_by_color = {
             "red": 0,
-            "blue": 0,
-            "green": 0,
+            "orange": 0,
             "yellow": 0,
+            "green": 0,
+            "cyan": 0,
+            "blue": 0,
+            "purple": 0,
+            "pink": 0,
+            "brown": 0,
             "white": 0,
+            "gray": 0,
+            "black": 0,
             "multicolor": 0,
             "unknown": 0
         }

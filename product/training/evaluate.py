@@ -10,6 +10,8 @@ ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 DATASET_YAML = os.path.join(os.path.dirname(__file__), "dataset", "data.yaml")
 MODELS_DIR = os.path.join(ROOT_DIR, "models")
 MODEL_PATH = os.path.join(MODELS_DIR, "yolov8n_cap.pt")
+# Giữ bằng IMG_SIZE trong training/export.py để đánh giá đúng kích thước bo mạch chạy
+IMG_SIZE = 224
 
 
 def main():
@@ -23,7 +25,8 @@ def main():
     else:
         model = YOLO(MODEL_PATH)
 
-    metrics = model.val(data=DATASET_YAML, imgsz=320, batch=16, verbose=True)
+    # Đánh giá đúng kích thước đầu vào mà bo mạch thực sự chạy (xem IMG_SIZE trong export.py)
+    metrics = model.val(data=DATASET_YAML, imgsz=IMG_SIZE, batch=16, verbose=True)
 
     print("\n" + "=" * 65)
     print(f" KẾT QUẢ ĐÁNH GIÁ MÔ HÌNH:")

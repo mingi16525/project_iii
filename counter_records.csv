@@ -1,0 +1,96 @@
+time,device_id,total_caps,color_breakdown,fps,status
+22:18:07,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",5.4,running
+22:18:09,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:18:11,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",6.1,running
+22:18:13,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:18:15,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:18:18,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:18:20,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:18:22,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:18:24,arduino_lab_node,1,"{""red"": 0, ""blue"": 0, ""green"": 1, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:18:24,arduino_lab_node,1,"{""red"": 0, ""blue"": 0, ""green"": 1, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",6.9,running
+22:18:25,arduino_lab_node,2,"{""red"": 0, ""blue"": 0, ""green"": 1, ""yellow"": 0, ""white"": 1, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:18:26,arduino_lab_node,2,"{""red"": 0, ""blue"": 0, ""green"": 1, ""yellow"": 0, ""white"": 1, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:18:27,arduino_lab_node,3,"{""red"": 0, ""blue"": 1, ""green"": 1, ""yellow"": 0, ""white"": 1, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:18:28,arduino_lab_node,4,"{""red"": 0, ""blue"": 1, ""green"": 2, ""yellow"": 0, ""white"": 1, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:18:29,arduino_lab_node,4,"{""red"": 0, ""blue"": 1, ""green"": 2, ""yellow"": 0, ""white"": 1, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:18:31,arduino_lab_node,5,"{""red"": 0, ""blue"": 1, ""green"": 2, ""yellow"": 0, ""white"": 1, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1}",7.1,running
+22:18:31,arduino_lab_node,5,"{""red"": 0, ""blue"": 1, ""green"": 2, ""yellow"": 0, ""white"": 1, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1}",7.1,running
+22:18:33,arduino_lab_node,6,"{""red"": 0, ""blue"": 1, ""green"": 2, ""yellow"": 0, ""white"": 1, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1}",7.1,running
+22:18:33,arduino_lab_node,7,"{""red"": 0, ""blue"": 1, ""green"": 2, ""yellow"": 0, ""white"": 1, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",5.1,running
+22:18:33,arduino_lab_node,7,"{""red"": 0, ""blue"": 1, ""green"": 2, ""yellow"": 0, ""white"": 1, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",5.1,running
+22:18:35,arduino_lab_node,8,"{""red"": 0, ""blue"": 1, ""green"": 3, ""yellow"": 0, ""white"": 1, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",7.1,running
+22:18:35,arduino_lab_node,9,"{""red"": 0, ""blue"": 1, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",7.1,running
+22:18:36,arduino_lab_node,9,"{""red"": 0, ""blue"": 1, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",7.1,running
+22:18:37,arduino_lab_node,10,"{""red"": 0, ""blue"": 2, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",7.1,running
+22:18:37,arduino_lab_node,11,"{""red"": 0, ""blue"": 3, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",7.1,running
+22:18:38,arduino_lab_node,11,"{""red"": 0, ""blue"": 3, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",7.1,running
+22:18:40,arduino_lab_node,11,"{""red"": 0, ""blue"": 3, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",6.9,running
+22:18:42,arduino_lab_node,11,"{""red"": 0, ""blue"": 3, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",6.2,running
+22:18:43,arduino_lab_node,13,"{""red"": 0, ""blue"": 3, ""green"": 4, ""yellow"": 0, ""white"": 3, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",6.2,running
+22:18:44,arduino_lab_node,14,"{""red"": 0, ""blue"": 3, ""green"": 5, ""yellow"": 0, ""white"": 3, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",4.9,running
+22:18:45,arduino_lab_node,14,"{""red"": 0, ""blue"": 3, ""green"": 5, ""yellow"": 0, ""white"": 3, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",4.9,running
+22:18:46,arduino_lab_node,15,"{""red"": 0, ""blue"": 3, ""green"": 5, ""yellow"": 0, ""white"": 4, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",4.2,running
+22:18:47,arduino_lab_node,16,"{""red"": 0, ""blue"": 3, ""green"": 5, ""yellow"": 0, ""white"": 5, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",4.2,running
+22:18:47,arduino_lab_node,16,"{""red"": 0, ""blue"": 3, ""green"": 5, ""yellow"": 0, ""white"": 5, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",4.2,running
+22:18:48,arduino_lab_node,17,"{""red"": 0, ""blue"": 3, ""green"": 6, ""yellow"": 0, ""white"": 5, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",5.5,running
+22:18:49,arduino_lab_node,17,"{""red"": 0, ""blue"": 3, ""green"": 6, ""yellow"": 0, ""white"": 5, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",5.5,running
+22:18:51,arduino_lab_node,18,"{""red"": 0, ""blue"": 4, ""green"": 6, ""yellow"": 0, ""white"": 5, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",4.3,running
+22:18:52,arduino_lab_node,18,"{""red"": 0, ""blue"": 4, ""green"": 6, ""yellow"": 0, ""white"": 5, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",4.3,running
+22:18:54,arduino_lab_node,18,"{""red"": 0, ""blue"": 4, ""green"": 6, ""yellow"": 0, ""white"": 5, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",7.1,running
+22:18:56,arduino_lab_node,18,"{""red"": 0, ""blue"": 4, ""green"": 6, ""yellow"": 0, ""white"": 5, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",5.9,running
+22:18:58,arduino_lab_node,18,"{""red"": 0, ""blue"": 4, ""green"": 6, ""yellow"": 0, ""white"": 5, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",6.1,running
+22:19:01,arduino_lab_node,18,"{""red"": 0, ""blue"": 4, ""green"": 6, ""yellow"": 0, ""white"": 5, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",7.1,running
+22:19:03,arduino_lab_node,18,"{""red"": 0, ""blue"": 4, ""green"": 6, ""yellow"": 0, ""white"": 5, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",7.1,running
+22:19:05,arduino_lab_node,18,"{""red"": 0, ""blue"": 4, ""green"": 6, ""yellow"": 0, ""white"": 5, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",7.1,running
+22:19:07,arduino_lab_node,18,"{""red"": 0, ""blue"": 4, ""green"": 6, ""yellow"": 0, ""white"": 5, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",7.1,running
+22:19:10,arduino_lab_node,18,"{""red"": 0, ""blue"": 4, ""green"": 6, ""yellow"": 0, ""white"": 5, ""multicolor"": 0, ""unknown"": 0, ""yellow_white"": 1, ""white_blue"": 1, ""blue_white"": 1}",7.1,running
+22:20:24,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:20:26,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:20:28,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:20:30,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:20:32,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:20:35,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:20:37,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:20:39,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:20:41,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:20:44,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:20:46,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:20:48,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:20:50,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:20:53,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:20:55,arduino_lab_node,0,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 0, ""multicolor"": 0, ""unknown"": 0}",7.1,running
+22:20:55,arduino_lab_node,2,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 1, ""multicolor"": 0, ""unknown"": 1}",7.1,running
+22:20:56,arduino_lab_node,3,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 1}",7.1,running
+22:20:57,arduino_lab_node,3,"{""red"": 0, ""blue"": 0, ""green"": 0, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 1}",7.1,running
+22:20:59,arduino_lab_node,5,"{""red"": 0, ""blue"": 0, ""green"": 1, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 2}",7.1,running
+22:20:59,arduino_lab_node,5,"{""red"": 0, ""blue"": 0, ""green"": 1, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 2}",7.1,running
+22:21:00,arduino_lab_node,6,"{""red"": 0, ""blue"": 0, ""green"": 2, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 2}",7.1,running
+22:21:00,arduino_lab_node,7,"{""red"": 0, ""blue"": 0, ""green"": 2, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 2, ""white_blue"": 1}",7.1,running
+22:21:01,arduino_lab_node,7,"{""red"": 0, ""blue"": 0, ""green"": 2, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 2, ""white_blue"": 1}",6.9,running
+22:21:03,arduino_lab_node,9,"{""red"": 0, ""blue"": 2, ""green"": 2, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 2, ""white_blue"": 1}",7.1,running
+22:21:04,arduino_lab_node,9,"{""red"": 0, ""blue"": 2, ""green"": 2, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 2, ""white_blue"": 1}",7.1,running
+22:21:05,arduino_lab_node,10,"{""red"": 0, ""blue"": 3, ""green"": 2, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 2, ""white_blue"": 1}",7.1,running
+22:21:05,arduino_lab_node,11,"{""red"": 0, ""blue"": 4, ""green"": 2, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 2, ""white_blue"": 1}",6.9,running
+22:21:06,arduino_lab_node,12,"{""red"": 0, ""blue"": 4, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 2, ""white_blue"": 1}",6.9,running
+22:21:06,arduino_lab_node,12,"{""red"": 0, ""blue"": 4, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 2, ""white_blue"": 1}",6.9,running
+22:21:08,arduino_lab_node,12,"{""red"": 0, ""blue"": 4, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 2, ""white_blue"": 1}",7.1,running
+22:21:08,arduino_lab_node,14,"{""red"": 0, ""blue"": 5, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 3, ""white_blue"": 1}",7.1,running
+22:21:09,arduino_lab_node,15,"{""red"": 0, ""blue"": 6, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 3, ""white_blue"": 1}",7.1,running
+22:21:10,arduino_lab_node,15,"{""red"": 0, ""blue"": 6, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 3, ""white_blue"": 1}",7.1,running
+22:21:12,arduino_lab_node,16,"{""red"": 0, ""blue"": 7, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 3, ""white_blue"": 1}",7.1,running
+22:21:13,arduino_lab_node,16,"{""red"": 0, ""blue"": 7, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 3, ""white_blue"": 1}",7.1,running
+22:21:15,arduino_lab_node,16,"{""red"": 0, ""blue"": 7, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 3, ""white_blue"": 1}",7.1,running
+22:21:16,arduino_lab_node,17,"{""red"": 0, ""blue"": 7, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 4, ""white_blue"": 1}",7.1,running
+22:21:17,arduino_lab_node,17,"{""red"": 0, ""blue"": 7, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 4, ""white_blue"": 1}",7.1,running
+22:21:19,arduino_lab_node,18,"{""red"": 0, ""blue"": 8, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 4, ""white_blue"": 1}",7.1,running
+22:21:19,arduino_lab_node,18,"{""red"": 0, ""blue"": 8, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 4, ""white_blue"": 1}",7.1,running
+22:21:21,arduino_lab_node,18,"{""red"": 0, ""blue"": 8, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 4, ""white_blue"": 1}",6.6,running
+22:21:24,arduino_lab_node,18,"{""red"": 0, ""blue"": 8, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 4, ""white_blue"": 1}",5.1,running
+22:21:26,arduino_lab_node,18,"{""red"": 0, ""blue"": 8, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 4, ""white_blue"": 1}",7.1,running
+22:21:28,arduino_lab_node,18,"{""red"": 0, ""blue"": 8, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 4, ""white_blue"": 1}",7.1,running
+22:21:30,arduino_lab_node,18,"{""red"": 0, ""blue"": 8, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 4, ""white_blue"": 1}",6.9,running
+22:21:32,arduino_lab_node,18,"{""red"": 0, ""blue"": 8, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 4, ""white_blue"": 1}",7.1,running
+22:21:35,arduino_lab_node,18,"{""red"": 0, ""blue"": 8, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 4, ""white_blue"": 1}",7.1,running
+22:21:37,arduino_lab_node,18,"{""red"": 0, ""blue"": 8, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 4, ""white_blue"": 1}",7.1,running
+22:21:39,arduino_lab_node,18,"{""red"": 0, ""blue"": 8, ""green"": 3, ""yellow"": 0, ""white"": 2, ""multicolor"": 0, ""unknown"": 4, ""white_blue"": 1}",7.1,running

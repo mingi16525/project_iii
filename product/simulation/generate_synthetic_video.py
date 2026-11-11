@@ -1,8 +1,8 @@
 """
 Synthetic Video Generator for Bottle Cap Conveyor Simulation
 Tự động sinh video mô phỏng băng chuyền và nắp chai trôi qua vạch ảo.
-Hỗ trợ tạo nắp chai các màu đã huấn luyện (đỏ, xanh dương, xanh lá, vàng)
-và nắp chai màu lạ (tím, xám) để kiểm thử bộ phân loại màu và Unknown Color.
+Hỗ trợ tạo nắp chai đủ 12 màu cơ bản đã cấu hình dải HSV
+và nắp chai màu lạ (ngoài danh mục) để kiểm thử bộ phân loại màu và Unknown Color.
 """
 
 import os
@@ -13,36 +13,47 @@ import numpy as np
 def generate_simulation_video(output_path="simulation/conveyor_simulation.mp4",
                                num_caps=15, width=640, height=480, fps=25, duration_sec=18):
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    total_frames = int(fps * duration_sec)
+    cap_radius = 28
+    speed_y = 3.2
+
+    # Đảm bảo khoảng cách tối thiểu giữa 2 nắp liên tiếp >= 75px để không bị chồng lấn
+    min_interval = max(24, int(75 / speed_y))
+    # Số frame cần thiết để nắp cuối cùng kịp trôi qua vạch đếm (line_y=240)
+    min_frames_needed = 40 + max(0, num_caps - 1) * min_interval + int((240 + 80) / speed_y) + 30
+    total_frames = max(int(fps * duration_sec), min_frames_needed)
+    actual_duration = round(total_frames / fps, 1)
+
+    start_frame_interval = min_interval
+    if num_caps > 1:
+        available_span = total_frames - int((240 + 80) / speed_y) - 70
+        start_frame_interval = max(min_interval, int(available_span / (num_caps - 1)))
 
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     out = cv2.VideoWriter(output_path, fourcc, fps, (width, height))
 
     print(f"[Sim Generator] Đang khởi tạo video mô phỏng: {output_path}")
     print(f"[Sim Generator] Số nắp chai chuẩn (Ground Truth): {num_caps} nắp")
-    print(f"[Sim Generator] Độ phân giải: {width}x{height} | {fps} FPS | Thời lượng: {duration_sec}s")
+    print(f"[Sim Generator] Độ phân giải: {width}x{height} | {fps} FPS | Thời lượng: {actual_duration}s ({total_frames} frames)")
 
-    # Danh sách màu sắc nắp chai: gồm màu chuẩn và màu lạ (purple/gray - chưa train)
+    # Danh sách màu nắp chai mô phỏng: phủ đủ 12 màu cơ bản đã cấu hình dải HSV,
+    # kèm một màu nằm ngoài danh mục (be/kem) để kiểm thử nhãn Unknown Color.
     cap_specs = [
-        {"bgr": (30, 30, 230), "expected": "red"},      # Đỏ (Đã train)
-        {"bgr": (230, 60, 30), "expected": "blue"},     # Xanh dương (Đã train)
-        {"bgr": (30, 220, 50), "expected": "green"},    # Xanh lá (Đã train)
-        {"bgr": (20, 220, 230), "expected": "yellow"},  # Vàng (Đã train)
-        {"bgr": (180, 20, 190), "expected": "unknown"}, # Tím Magenta (Màu LẠ - Chưa train!)
-        {"bgr": (30, 30, 230), "expected": "red"},      # Đỏ
-        {"bgr": (230, 60, 30), "expected": "blue"},     # Xanh dương
-        {"bgr": (120, 120, 120), "expected": "unknown"},# Xám tối (Màu LẠ - Chưa train!)
-        {"bgr": (30, 220, 50), "expected": "green"},    # Xanh lá
-        {"bgr": (20, 220, 230), "expected": "yellow"},  # Vàng
-        {"bgr": (30, 30, 230), "expected": "red"},      # Đỏ
-        {"bgr": (230, 60, 30), "expected": "blue"},     # Xanh dương
+        {"bgr": (40, 40, 220), "expected": "red"},        # Đỏ
+        {"bgr": (20, 130, 245), "expected": "orange"},    # Cam
+        {"bgr": (30, 215, 235), "expected": "yellow"},    # Vàng
+        {"bgr": (60, 190, 60), "expected": "green"},      # Xanh lá
+        {"bgr": (200, 200, 40), "expected": "cyan"},      # Xanh ngọc
+        {"bgr": (220, 90, 40), "expected": "blue"},       # Xanh dương
+        {"bgr": (170, 50, 130), "expected": "purple"},    # Tím
+        {"bgr": (190, 120, 245), "expected": "pink"},     # Hồng
+        {"bgr": (35, 65, 110), "expected": "brown"},      # Nâu
+        {"bgr": (235, 235, 235), "expected": "white"},    # Trắng
+        {"bgr": (130, 130, 130), "expected": "gray"},     # Xám
+        {"bgr": (40, 40, 40), "expected": "black"},       # Đen
+        {"bgr": (170, 195, 215), "expected": "unknown"},  # Be/kem (MÀU LẠ - ngoài danh mục!)
     ]
 
     caps = []
-    cap_radius = 28
-    start_frame_interval = int((total_frames - 120) / num_caps)
-    speed_y = 3.2
-
     for i in range(num_caps):
         spec = cap_specs[i % len(cap_specs)]
         start_f = 40 + i * start_frame_interval

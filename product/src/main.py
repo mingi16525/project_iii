@@ -134,13 +134,17 @@ def main():
     print("\n[Main] Hệ thống bắt đầu vận hành! Nhấn 'q' để dừng, 'r' để reset, 'SPACE' để tạm dừng.")
     heartbeat_interval = mqtt_cfg.get("heartbeat_interval", 2.0)
     last_heartbeat_time = time.time()
-    detect_interval = model_cfg.get("detect_interval", 1)
+    # Chặn giá trị 0 hoặc âm trong config để không gây lỗi chia cho 0 ở vòng lặp chính
+    detect_interval = max(1, int(model_cfg.get("detect_interval", 1)))
 
     frame_count = 0
     fps_start_time = time.time()
     current_fps = 0.0
     paused = False
+    # Giữ nguyên kết quả của lần suy luận gần nhất để dùng lại ở các frame bỏ qua detect
     raw_detections = []
+    detections = []
+    box_color_map = {}
 
     show_window = disp_cfg.get("show_window", False)
     window_name = disp_cfg.get("window_name", "Edge AI Bottle Cap Counter")
@@ -166,18 +170,24 @@ def main():
                     fps_start_time = time.time()
 
                 # Bước 2: Suy luận nhận diện AI (chạy theo chu kỳ detect_interval để tối ưu FPS)
-                if frame_count % detect_interval == 0 or not raw_detections:
+                # Tính từ frame đầu tiên (frame_count bắt đầu từ 1) nên frame 1, 1+N, 1+2N... được suy luận.
+                # Không thêm điều kiện "or not raw_detections": khi băng tải trống, danh sách box luôn
+                # rỗng nên điều kiện đó sẽ luôn đúng và detect_interval bị vô hiệu hóa đúng lúc rảnh nhất.
+                is_detect_frame = (frame_count - 1) % detect_interval == 0
+                if is_detect_frame:
                     raw_detections = detector.detect(frame)
 
-                # Bước 2b: Phân loại màu sắc cho từng nắp chai
-                detections = []
-                box_color_map = {}
-                for box in raw_detections:
-                    c_name, c_conf = color_analyzer.classify_color(frame, box)
-                    detections.append(list(box) + [c_name, c_conf])
-                    cx = int((box[0] + box[2]) / 2)
-                    cy = int((box[1] + box[3]) / 2)
-                    box_color_map[(cx, cy)] = (c_name, c_conf)
+                    # Bước 2b: Phân loại màu sắc cho từng nắp chai.
+                    # Chỉ tính lại ở frame có suy luận: các frame bỏ qua dùng đúng box cũ nên
+                    # kết quả màu cũng không đổi, tính lại chỉ tốn thêm thời gian vô ích.
+                    detections = []
+                    box_color_map = {}
+                    for box in raw_detections:
+                        c_name, c_conf = color_analyzer.classify_color(frame, box)
+                        detections.append(list(box) + [c_name, c_conf])
+                        cx = int((box[0] + box[2]) / 2)
+                        cy = int((box[1] + box[3]) / 2)
+                        box_color_map[(cx, cy)] = (c_name, c_conf)
 
                 # Bước 3: Cập nhật thuật toán Centroid Tracking
                 tracked_objects = tracker.update(detections)

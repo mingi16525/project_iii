@@ -43,7 +43,8 @@ def run_accuracy_test(expected_caps=12, model_path=""):
     source.open()
 
     detector = ObjectDetectorPC(model_path=model_path, runtime="auto")
-    color_analyzer = ColorAnalyzer(target_colors=["red", "blue", "green", "yellow"], confidence_threshold=0.70)
+    # target_colors=None => dùng toàn bộ 12 màu cơ bản trong bảng dải HSV của ColorAnalyzer
+    color_analyzer = ColorAnalyzer(target_colors=None, confidence_threshold=0.70)
     tracker = CentroidTracker(max_disappeared=10)
     counter = LineCounter(line_y=240, buffer_zone=25)
 

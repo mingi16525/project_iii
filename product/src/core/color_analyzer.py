@@ -11,22 +11,56 @@ import numpy as np
 class ColorAnalyzer:
     def __init__(self, target_colors=None, confidence_threshold=0.70):
         self.confidence_threshold = confidence_threshold
+        # Bảng dải màu chuẩn trong không gian HSV của OpenCV (Hue: 0-180, Sat: 0-255, Val: 0-255)
+        # 12 màu cơ bản. Các dải được chia gần như KHÔNG giao nhau để tỷ lệ phủ của
+        # từng màu không bị đếm trùng, giúp logic đơn sắc / 2 màu / đa màu hoạt động đúng.
         self.color_ranges = {
+            # --- Nhóm màu sắc (Chromatic): Saturation >= 45, Value >= 55 ---
             "red": [
-                (np.array([0, 70, 50]), np.array([10, 255, 255])),
-                (np.array([170, 70, 50]), np.array([180, 255, 255]))
+                # Đỏ có 2 dải vì Hue bao quanh mốc 0 và 180
+                (np.array([0, 70, 55]), np.array([7, 255, 255])),
+                (np.array([172, 70, 55]), np.array([180, 255, 255]))
             ],
-            "blue": [
-                (np.array([100, 70, 50]), np.array([130, 255, 255]))
+            "orange": [
+                (np.array([8, 80, 120]), np.array([20, 255, 255]))
             ],
-            "green": [
-                (np.array([35, 70, 50]), np.array([85, 255, 255]))
+            "brown": [
+                # Nâu = cam/đỏ tối: cùng dải Hue với cam nhưng Value thấp
+                (np.array([8, 70, 55]), np.array([20, 255, 119]))
             ],
             "yellow": [
-                (np.array([20, 70, 80]), np.array([35, 255, 255]))
+                (np.array([21, 70, 70]), np.array([33, 255, 255]))
             ],
+            "green": [
+                (np.array([34, 50, 55]), np.array([85, 255, 255]))
+            ],
+            "cyan": [
+                # Xanh ngọc / xanh lơ (cyan - teal)
+                (np.array([86, 50, 55]), np.array([99, 255, 255]))
+            ],
+            "blue": [
+                (np.array([100, 50, 55]), np.array([128, 255, 255]))
+            ],
+            "purple": [
+                # Tím (violet - magenta tối)
+                (np.array([129, 45, 55]), np.array([150, 255, 255]))
+            ],
+            "pink": [
+                # Hồng = magenta sáng, cộng thêm dải đỏ nhạt (Saturation thấp, Value cao)
+                (np.array([151, 45, 110]), np.array([171, 255, 255])),
+                (np.array([0, 45, 170]), np.array([7, 69, 255])),
+                (np.array([172, 45, 170]), np.array([180, 69, 255]))
+            ],
+            # --- Nhóm màu vô sắc (Achromatic): Saturation <= 44, phân tách theo độ sáng ---
             "white": [
-                (np.array([0, 0, 160]), np.array([180, 55, 255]))
+                (np.array([0, 0, 175]), np.array([180, 44, 255]))
+            ],
+            "gray": [
+                (np.array([0, 0, 55]), np.array([180, 44, 174]))
+            ],
+            "black": [
+                # Đen: Value rất thấp nên bỏ qua Saturation
+                (np.array([0, 0, 0]), np.array([180, 255, 54]))
             ]
         }
 

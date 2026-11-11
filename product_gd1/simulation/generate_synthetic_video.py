@@ -34,20 +34,22 @@ def generate_simulation_video(output_path="simulation/conveyor_simulation.mp4",
     print(f"[Sim Generator] Số nắp chai chuẩn (Ground Truth): {num_caps} nắp")
     print(f"[Sim Generator] Độ phân giải: {width}x{height} | {fps} FPS | Thời lượng: {actual_duration}s ({total_frames} frames)")
 
-    # Danh sách các nắp chai mô phỏng: gồm các màu đã train và màu lạ (purple/tím, xám)
+    # Danh sách màu nắp chai mô phỏng: phủ đủ 12 màu cơ bản đã cấu hình dải HSV,
+    # kèm một màu nằm ngoài danh mục (be/kem) để kiểm thử nhãn Unknown Color.
     cap_specs = [
-        {"bgr": (30, 30, 230), "expected": "red"},      # Đỏ (Đã train)
-        {"bgr": (230, 60, 30), "expected": "blue"},     # Xanh dương (Đã train)
-        {"bgr": (30, 220, 50), "expected": "green"},    # Xanh lá (Đã train)
-        {"bgr": (20, 220, 230), "expected": "yellow"},  # Vàng (Đã train)
-        {"bgr": (180, 20, 190), "expected": "unknown"}, # Tím / Magenta (Màu LẠ - Chưa train!)
-        {"bgr": (30, 30, 230), "expected": "red"},      # Đỏ
-        {"bgr": (230, 60, 30), "expected": "blue"},     # Xanh dương
-        {"bgr": (120, 120, 120), "expected": "unknown"},# Xám tối (Màu LẠ - Chưa train!)
-        {"bgr": (30, 220, 50), "expected": "green"},    # Xanh lá
-        {"bgr": (20, 220, 230), "expected": "yellow"},  # Vàng
-        {"bgr": (30, 30, 230), "expected": "red"},      # Đỏ
-        {"bgr": (230, 60, 30), "expected": "blue"},     # Xanh dương
+        {"bgr": (40, 40, 220), "expected": "red"},        # Đỏ
+        {"bgr": (20, 130, 245), "expected": "orange"},    # Cam
+        {"bgr": (30, 215, 235), "expected": "yellow"},    # Vàng
+        {"bgr": (60, 190, 60), "expected": "green"},      # Xanh lá
+        {"bgr": (200, 200, 40), "expected": "cyan"},      # Xanh ngọc
+        {"bgr": (220, 90, 40), "expected": "blue"},       # Xanh dương
+        {"bgr": (170, 50, 130), "expected": "purple"},    # Tím
+        {"bgr": (190, 120, 245), "expected": "pink"},     # Hồng
+        {"bgr": (35, 65, 110), "expected": "brown"},      # Nâu
+        {"bgr": (235, 235, 235), "expected": "white"},    # Trắng
+        {"bgr": (130, 130, 130), "expected": "gray"},     # Xám
+        {"bgr": (40, 40, 40), "expected": "black"},       # Đen
+        {"bgr": (170, 195, 215), "expected": "unknown"},  # Be/kem (MÀU LẠ - ngoài danh mục!)
     ]
 
     caps = []

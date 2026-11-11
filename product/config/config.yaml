@@ -20,10 +20,16 @@ camera:
 model:
   path: "models/yolov8n_cap.onnx"       # Đường dẫn mô hình (.onnx, .tflite, hoặc .pt)
   runtime: "auto"                   # "auto" (tự nhận diện), "onnx", "tflite", hoặc "pytorch"
-  input_size: [320, 320]            # Kích thước khung hình đầu vào tối ưu cho Edge AI
+  # PHẢI khớp đúng kích thước mô hình ONNX đã xuất (xem IMG_SIZE trong training/export.py),
+  # vì ONNX xuất với dynamic=False nên sai kích thước sẽ lỗi INVALID_ARGUMENT khi nạp.
+  # 224 nhanh hơn 320 khoảng 1.8x trên CPU ARM, mAP50 gần như không đổi (0.9919 / 0.9935).
+  input_size: [224, 224]
   confidence_threshold: 0.50        # Ngưỡng tin cậy tối thiểu nhận diện nắp chai
   iou_threshold: 0.45               # Ngưỡng NMS IoU loại bỏ trùng lặp
-  detect_interval: 2                # Nhận diện mỗi N frame (2: x2 FPS từ ~4 lên ~8-10 FPS)
+  # Nhận diện mỗi N frame, các frame còn lại dùng lại box và màu của lần suy luận trước.
+  # Giới hạn: nắp không được dịch quá ~30px (nửa đường kính nắp) giữa 2 lần suy luận,
+  # nếu không tracker mất dấu và đếm bị hụt. Băng tải càng nhanh thì N phải càng nhỏ.
+  detect_interval: 2
   labels: ["cap"]                   # Nhãn vật thể cần đếm
 
 counter:
@@ -34,7 +40,9 @@ counter:
 
 color:
   enabled: true
-  trained_colors: ["red", "blue", "green", "yellow", "white"] # Các màu đơn đã cấu hình dải HSV
+  # Danh mục 12 màu cơ bản đã cấu hình dải HSV (bỏ bất kỳ màu nào khỏi danh sách
+  # nếu muốn hệ thống coi màu đó là "unknown"):
+  trained_colors: ["red", "orange", "yellow", "green", "cyan", "blue", "purple", "pink", "brown", "white", "gray", "black"]
   confidence_threshold: 0.70        # Ngưỡng chính xác màu đơn tối thiểu (70%)
   # Chiến lược phân loại: Hỗ trợ tự động phân loại đơn sắc, phối 2 màu (Dual-Color) và đa màu (Multicolor)
 
