@@ -20,6 +20,7 @@ from src.core.counter import LineCounter
 from src.core.color_analyzer import ColorAnalyzer
 from src.comms.mqtt_client import MqttPublisher
 from src.utils.visualizer import Visualizer
+from src.utils.streamer import start_stream_server
 
 
 def load_config(config_path="config/config.yaml"):
@@ -123,6 +124,10 @@ def main():
             mqtt_publisher.stop()
         sys.exit(1)
 
+
+
+    # Khởi động web streamer cho phép xem qua trình duyệt khi dùng SSH
+    stream_buffer = start_stream_server(host="0.0.0.0", port=8080)
     # Đăng ký bắt tín hiệu ngắt an toàn (Ctrl+C)
     running = True
 
@@ -226,24 +231,31 @@ def main():
                         )
                         last_heartbeat_time = now
 
-                # Bước 6: Hiển thị trực quan GUI (nếu có màn hình)
-                if show_window:
-                    is_mqtt_online = mqtt_publisher.is_connected if mqtt_publisher else False
-                    annotated_frame = visualizer.render(
-                        frame, detections, tracked_objects, total_caps,
-                        current_fps, counts_by_color=counts_by_color,
-                        source_type=source_type.upper(),
-                        just_counted=just_counted, mqtt_connected=is_mqtt_online,
-                        object_colors=object_colors
-                    )
+                # Bước 6: Hiển thị trực quan (Vẽ OSD, Bounding Box và Stream qua Web)
+                is_mqtt_online = mqtt_publisher.is_connected if mqtt_publisher else False
+                
+                # Luôn vẽ đầy đủ Bounding Box, màu sắc, vạch đếm và OSD
+                annotated_frame = visualizer.render(
+                    frame, detections, tracked_objects, total_caps,
+                    current_fps, counts_by_color=counts_by_color,
+                    source_type=source_type.upper(),
+                    just_counted=just_counted, mqtt_connected=is_mqtt_online,
+                    object_colors=object_colors
+                )
 
+                # Nén ảnh JPEG (chất lượng 70% để tối ưu độ trễ truyền qua Wi-Fi)
+                ret_enc, jpeg_data = cv2.imencode('.jpg', annotated_frame, [int(cv2.IMWRITE_JPEG_QUALITY), 70])
+                if ret_enc:
+                    stream_buffer.update(jpeg_data.tobytes())
+
+                # Nếu có màn hình desktop cục bộ thì hiển thị cửa sổ OpenCV
+                if show_window:
                     cv2.imshow(window_name, annotated_frame)
                 else:
-                    # Chế độ dòng lệnh Headless (in log mỗi giây)
+                    # Chế độ Headless: in log tóm tắt ra console mỗi 15 frame
                     if frame_count % 15 == 0:
                         summary = " ".join([f"{k.upper()}:{v}" for k, v in counts_by_color.items() if v > 0])
                         print(f"[STATUS] Count: {total_caps} ({summary}) | FPS: {current_fps:.1f} | Detections: {len(detections)}")
-
             if show_window:
                 key = cv2.waitKey(20 if not paused else 50) & 0xFF
                 if key == ord('q'):
